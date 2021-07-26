@@ -1,0 +1,88 @@
+Steps for using PHP to decode the JWT returned by AWS Cognito service. 
+First you need to setup a User Pool in AWS. Plenty of online tutorials for this. 
+
+Once the User Pool is setup, you will need the following parameters for the login page code. 
+
+In User Pool - > App Integration -> 
+
+App Client Settings
+=========================================
+App client Id: 7k9aruc3ok5fj0dh849pe8tfth
+Callback URL(s) : https://yourwebapp.com/awsLogin.php
+
+Domain Name
+============
+Amazon Cognito domain : https://yourwebapp.auth.us-west-2.amazoncognito.com
+
+Note. Currently this code does not verify the token. This will be the next part. 
+
+
+Steps
+=========
+
+1) Have a login button on your website. It will have this link.
+
+
+<Amazon Cognito Domain>/login?response_type=code&client_id=<App client Id>&redirect_uri=<callback URL>&state=STATE&scope=openid+profile+email+aws.cognito.signin.user.admin
+
+Example:
+https://yourwebapp.auth.us-west-2.amazoncognito.com/login?response_type=code&client_id=7k9aruc3ok5fj0dh849pe8tfth&redirect_uri=https://yourwebapp.com/awsLogin.php&state=STATE&scope=openid+profile+email+aws.cognito.signin.user.admin
+
+2) Clicking on above link will take user to either signin or create an account. If login is performed, after AWS authenticates the login, it will redirect you to the callback URL. 
+In this example the call back URL is awsLogin.php. 
+
+It will pass a JWT Token.  
+
+3) The JWT token is then used to perform auth request. Using the token, and some other parameters, we perform the HTTPS request, and get returned another JWT token. 
+
+The auth request is as follows (handled in awsLogin.php).
+
+https://yourwebapp.auth.us-west-2.amazoncognito.com/oauth2/token
+
+The following parameters must be sent with the above oauth request (application/x-www-form-urlencoded parameters)
+
+grant_type – Set to “authorization_code” for this grant.				                       "authorization_code"
+code – The authorization code that’s passed to awsLogin.php after step 1.   				   "4357b5e1-b2d1-4a3e-8f70-4546373"
+client_id – Same as from the request in step 1.							                            7k9aruc3ok5fj0dh849pe8tfth	
+redirect_uri / call back URL – Same as from the request in step 1.						          https://airwatch.io/awsLogin.php
+
+
+After sucessfull HTTPS request a JWT Token is returned. 
+
+This has 5 parts.
+ "id_token"
+ "access_token"
+ "refresh_token"
+ "expires_in"
+ "token_type"
+
+
+The code in awsLogin.php decodes the "id_token" and prints these parts:
+
+at_hash
+sub
+email_verified
+iss
+cognito_username
+origin_jti
+aud
+token_use
+auth_time
+exp
+iat
+jti
+email
+
+
+I then use email in users session. 
+
+
+
+
+
+
+
+
+
+
+
