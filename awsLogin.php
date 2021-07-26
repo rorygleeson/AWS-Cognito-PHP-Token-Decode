@@ -6,6 +6,8 @@ error_reporting(E_ALL);
 
 $token = $_REQUEST['code'];
 
+$url = 'https://yourwebapp.auth.us-west-2.amazoncognito.com/oauth2/token'; 
+
 $data = array(
     'grant_type' => 'authorization_code',
     'client_id' => '7k9cruc8ok5fj0sh849pe8thth',
