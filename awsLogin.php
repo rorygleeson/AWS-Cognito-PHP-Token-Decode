@@ -4,15 +4,7 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-
-
 $token = $_REQUEST['code'];
-$url = 'https://yourwebapp.auth.us-west-2.amazoncognito.com/oauth2/token';
-$grant_type = 'authorization_code';
-$client_id = '7k9cruc8ok5fj0sh849pe8thth';
-$redirect_uri = 'https://airwatch.io/awsLogin.php';
-
-
 
 $data = array(
     'grant_type' => 'authorization_code',
@@ -21,11 +13,7 @@ $data = array(
     'redirect_uri' => 'https://airwatch.io/awsLogin.php'
 );
 
-
-
 $query = http_build_query($data);
-
-
 
 $options = array(
     'http' => array(
@@ -46,7 +34,7 @@ echo "Result Initial API request"; echo "<br />";
 print_r($result); echo "<br />"; echo "<br />"; 
 echo "Size of array"; echo "<br />"; 
 $sizeOfArray = sizeof($result);
-echo "Size of Array is "; echo $sizeOfArray; echo "<br />";echo "<br />";echo "<br />"; 
+echo "Size of Array is "; echo $sizeOfArray; echo "<br />";echo "<br />";
 
 $idToken = $result['id_token'] ;
 $accessToken = $result['access_token'] ;
@@ -54,6 +42,8 @@ $accessToken = $result['access_token'] ;
 // At this stage we should have a valid idToken and accessToken
 // Decode the id token, its in JWT base64 encoded so decode here. 
 $idTokenDecodedArray =  json_decode(base64_decode(str_replace('_', '/', str_replace('-','+',explode('.', $idToken)[1]))),true);
+
+
 $at_hash = $idTokenDecodedArray['at_hash'];
 $sub = $idTokenDecodedArray['sub'];
 $email_verified = $idTokenDecodedArray['email_verified'];
@@ -82,20 +72,6 @@ echo "exp.."; echo $exp; echo "<br />";
 echo "iat.."; echo $iat; echo "<br />"; 
 echo "jti.."; echo $jti; echo "<br />"; echo "<br />"; echo "<br />"; 
 echo "email.."; echo $email; echo "<br />"; echo "<br />"; echo "<br />"; 
-
-echo "Now login for "; echo $email; echo "<br />"; echo "<br />"; 
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
