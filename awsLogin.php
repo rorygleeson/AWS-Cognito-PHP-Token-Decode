@@ -1,5 +1,13 @@
 <?php
 
+// This page gets called after a user performs a login. 
+// The initial login link is as follows:
+// https://yourwebapp.auth.us-west-2.amazoncognito.com/login?response_type=code&client_id=7k9cruc8ok5fj0sh849pe8thth&redirect_uri=https://yourwebapp.io/awsLogin.php&state=STATE&scope=openid+profile+email+aws.cognito.signin.user.admin
+// clicking on above link will take user to this page after successfull login. 
+
+
+
+
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
@@ -12,7 +20,7 @@ $data = array(
     'grant_type' => 'authorization_code',                   
     'client_id' => '7k9cruc8ok5fj0sh849pe8thth',                                            // get this from AWs Cognito User Pool settings.
     'code' => $token,
-    'redirect_uri' => 'https://airwatch.io/awsLogin.php'                                    // get this from AWs Cognito User Pool settings.
+    'redirect_uri' => 'https://yourwebapp.io/awsLogin.php'                                  // get this from AWs Cognito User Pool settings.
 );
 
 $query = http_build_query($data);
