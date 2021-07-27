@@ -4,15 +4,15 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-$token = $_REQUEST['code'];
+$token = $_REQUEST['code'];                                                                 // JWT Token returned after login performed. 
 
-$url = 'https://yourwebapp.auth.us-west-2.amazoncognito.com/oauth2/token'; 
+$url = 'https://yourwebapp.auth.us-west-2.amazoncognito.com/oauth2/token';                  // get this from AWs Cognito User Pool settings.
 
 $data = array(
-    'grant_type' => 'authorization_code',
-    'client_id' => '7k9cruc8ok5fj0sh849pe8thth',
+    'grant_type' => 'authorization_code',                   
+    'client_id' => '7k9cruc8ok5fj0sh849pe8thth',                                            // get this from AWs Cognito User Pool settings.
     'code' => $token,
-    'redirect_uri' => 'https://airwatch.io/awsLogin.php'
+    'redirect_uri' => 'https://airwatch.io/awsLogin.php'                                    // get this from AWs Cognito User Pool settings.
 );
 
 $query = http_build_query($data);
@@ -36,7 +36,7 @@ echo "Result Initial API request"; echo "<br />";
 print_r($result); echo "<br />"; echo "<br />"; 
 echo "Size of array"; echo "<br />"; 
 $sizeOfArray = sizeof($result);
-echo "Size of Array is "; echo $sizeOfArray; echo "<br />";echo "<br />";
+echo "Size of Array is "; echo $sizeOfArray; echo "<br />";echo "<br />";     // should have 5 elements. id_token, access_token, refresh_token, expires_in and token_type.
 
 $idToken = $result['id_token'] ;
 $accessToken = $result['access_token'] ;
