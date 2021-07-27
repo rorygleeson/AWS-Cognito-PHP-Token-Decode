@@ -2,7 +2,7 @@
 
 // This page gets called after a user performs a login. 
 // The initial login link is as follows:
-// https://yourwebapp.auth.us-west-2.amazoncognito.com/login?response_type=code&client_id=7k9cruc8ok5fj0sh849pe8thth&redirect_uri=https://yourwebapp.io/awsLogin.php&state=STATE&scope=openid+profile+email+aws.cognito.signin.user.admin
+// https://yourwebapp.auth.us-west-2.amazoncognito.com/login?response_type=code&client_id=7k9aruc3ok5fj0dh849pe8tfth&redirect_uri=https://yourwebapp.io/awsLogin.php&state=STATE&scope=openid+profile+email+aws.cognito.signin.user.admin
 // clicking on above link will take user to this page after successfull login. 
 
 
@@ -18,7 +18,7 @@ $url = 'https://yourwebapp.auth.us-west-2.amazoncognito.com/oauth2/token';      
 
 $data = array(
     'grant_type' => 'authorization_code',                   
-    'client_id' => '7k9cruc8ok5fj0sh849pe8thth',                                            // get this from AWs Cognito User Pool settings.
+    'client_id' => '7k9aruc3ok5fj0dh849pe8tfth',                                            // get this from AWs Cognito User Pool settings.
     'code' => $token,
     'redirect_uri' => 'https://yourwebapp.io/awsLogin.php'                                  // get this from AWs Cognito User Pool settings.
 );
